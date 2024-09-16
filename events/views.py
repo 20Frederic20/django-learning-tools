@@ -7,6 +7,6 @@ import time
 def index(request):
     time.sleep(0.5)
     if request.htmx:
-        return render(request, 'events/index.html')
+        return render(request, 'blogs/index.html')
     else:
-        return render(request, 'events/index.html')
+        return render(request, 'blogs/index.html')

@@ -12,9 +12,17 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
+import environ
+
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 
 # Quick-start development settings - unsuitable for production
@@ -24,7 +32,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-ffs8d6fl+!non17aksnh00(lfb&xvr2sgh*2s^c&9((kv9brc&"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = [
     "0.0.0.0",
@@ -41,15 +49,21 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+
     "celery",
+
     "core",
+    "events",
+    "blog",
+    "authentication",
+
     "rest_framework",
     "corsheaders",
     "django_htmx",
     "django_extensions",
-    "events",
-    "blog",
-    "authentication",
+
+    'tailwind',
+    'theme',
 ]
 
 MIDDLEWARE = [
@@ -68,7 +82,7 @@ ROOT_URLCONF = "dockerTest.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / 'templates',],
+        "DIRS": [BASE_DIR / 'theme/templates',],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -147,6 +161,12 @@ STATICFILES_DIRS = [BASE_DIR / 'static',]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'uploads'
 
+TAILWIND_APP_NAME = 'theme'
+
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
@@ -159,3 +179,10 @@ CELERY_ACCEPT_CONTENT = ["json"]
 CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"
 CELERY_TIMEZONE = "UTC"
+
+
+# Durée de la session en secondes (par défaut : 1209600 secondes = 2 semaines)
+SESSION_COOKIE_AGE = 1209600
+
+# Si vous utilisez des sessions persistantes
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False

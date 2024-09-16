@@ -3,3 +3,5 @@ migrations
 .vscode
 .DS_Store
 .venv
+static_src
+.env

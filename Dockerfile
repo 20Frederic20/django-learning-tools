@@ -5,13 +5,17 @@ WORKDIR /code
 
 # Copy the requirements file into the container
 COPY requirements.txt .
+# Copy the rest of the application code into the container
+COPY . /code/
 
 # Install the dependencies
+RUN python -m venv /env
+RUN chmod +x -R /env
+RUN /env/bin/activate
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-# Copy the rest of the application code into the container
-COPY . /code/
+
 
 # Copy the entrypoint file into the container
 COPY entrypoint.sh /code/entrypoint.sh

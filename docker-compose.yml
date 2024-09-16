@@ -5,26 +5,14 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: python manage.py runserver 0.0.0.0:8010
     volumes:
       - .:/code
     ports:
-      - "8010:8010"
-    networks:
-      - django-network
-
-  rabbitmq:
-    image: rabbitmq:3.13-management
-    environment:
-      RABBITMQ_DEFAULT_USER: guest
-      RABBITMQ_DEFAULT_PASS: guest
-    ports:
-      - "5672:5672"
-      - "15672:15672"
-    networks:
-      - django-network
-    # entrypoint: ./code/entrypoint.sh
-
-networks:
-  django-network:
-    driver: bridge
+      - "8011:8011"
+    command:
+      - sh
+      - -c
+      - |
+        python manage.py makemigrations
+        python manage.py migrate
+        python manage.py runserver 0.0.0.0:8011

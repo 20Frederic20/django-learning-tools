@@ -155,7 +155,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = "static/"
-STATICFILES_DIRS = [BASE_DIR / 'static',]
+STATICFILES_DIRS = [BASE_DIR / 'static',BASE_DIR / 'theme/static_src']
 
 
 MEDIA_URL = '/media/'
@@ -186,3 +186,12 @@ SESSION_COOKIE_AGE = 1209600
 
 # Si vous utilisez des sessions persistantes
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+
+# EMAIL CONFIG
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+# EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')

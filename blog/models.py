@@ -45,7 +45,7 @@ class Post(DBOject):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('blog:show', args=[self.uuid])
+        return reverse('blog:show_post', args=[self.uuid])
 
 class Comment(DBOject):
     post = models.ForeignKey(

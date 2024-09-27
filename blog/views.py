@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404
+from .services import PostService
 from .models import Post
 from .forms import PostForm, EmailPostForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -17,7 +18,7 @@ def index(request):
     Returns:
     - A Django render response object containing the index page with the paginated posts and a form for creating new posts.
     """
-    posts = Post.objects.all()
+    posts = PostService.get_posts()
     paginator = Paginator(posts, 3)
     page_number = request.GET.get('page', 1)
     try:
